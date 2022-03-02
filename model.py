@@ -44,5 +44,15 @@ final_predictions = model.predict(test_values)
 dict = {}
 # for i in range (len(final_predictions)):
 #     dict[i] = final_predictions[i]
-df = pd.DataFrame(columns=['SalePrice'], data= final_predictions)
-df.to_csv('predictions.csv')
+nums = []
+for i in range(1001, 1460):
+    nums.append(i)
+# row = pd.Series(nums)
+# df = pd.DataFrame(columns=['Id','SalePrice'], data= [nums, final_predictions])
+# df.to_csv('predictions.csv')
+csvfile = 'predictions2.csv'
+with open(csvfile, "w") as output:
+    writer = csv.writer(output, lineterminator='\n')
+    writer.writerow(['Id', 'SalePrice'])
+    for val in zip(nums, final_predictions):
+        writer.writerow(val)
